@@ -2,6 +2,8 @@
 import { IotaClient, getFullnodeUrl } from '@iota/iota-sdk/client';
 import { HierarchiesClientReadOnly } from '@iota/hierarchies/web';
 import { useEffect } from 'react';
+import wasmUrl from "@iota/hierarchies/web/hierarchies_wasm_bg.wasm?url";
+import { init } from "@iota/hierarchies/web";
 
 export const Test = () => {
 
@@ -24,8 +26,11 @@ export const Test = () => {
 
 
     useEffect(() => {
-        createHierarchiesClientReadOnly();
-        createHierarchiesClientReadOnlyWithPkgId();
+        init(wasmUrl)
+            .then(() => {
+                createHierarchiesClientReadOnly();
+                createHierarchiesClientReadOnlyWithPkgId();
+            });
     }, [])
 
 
